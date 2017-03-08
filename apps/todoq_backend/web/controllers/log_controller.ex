@@ -3,13 +3,14 @@ defmodule TodoQ.LogController do
 
   alias TodoQ.Log
 
-  def index(conn, _params) do
-    logs = Repo.all(Log)
+  def index(conn, %{"activity_id" => activity_id}) do
+    logs = Repo.all(from u in Log, where: u.activity_id == ^activity_id)
     render(conn, "index.json", logs: logs)
   end
 
   def create(conn, %{"log" => log_params, "activity_id" => activity_id}) do
-    changeset = Log.changeset(%Log{activity_id: activity_id}, log_params)
+    changeset = %Log{activity_id: activity_id}
+                |> Log.changeset(log_params)
 
     case Repo.insert(changeset) do
       {:ok, log} ->
