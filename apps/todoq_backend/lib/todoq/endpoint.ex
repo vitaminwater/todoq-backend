@@ -36,5 +36,7 @@ defmodule TodoQ.Endpoint do
     key: "_todoq_key",
     signing_salt: "e06aLXMN"
 
+  plug CORSPlug, origin: ["http://localhost:3000"]
+
   plug TodoQ.Router
 end
