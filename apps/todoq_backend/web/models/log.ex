@@ -2,8 +2,9 @@ defmodule TodoQ.Log do
   use TodoQ.Web, :model
 
   schema "logs" do
-    field :content, :map
+    field :text, :string
     field :type, :string
+    field :content, :map
 
     belongs_to :activity, TodoQ.Activity
 

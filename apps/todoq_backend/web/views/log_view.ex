@@ -11,7 +11,8 @@ defmodule TodoQ.LogView do
 
   def render("log.json", %{log: log}) do
     %{id: log.id,
-      content: log.content,
-      type: log.type}
+      text: log.text,
+      type: log.type,
+      content: log.content}
   end
 end

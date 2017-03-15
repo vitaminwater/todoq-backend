@@ -3,10 +3,18 @@ defmodule TodoQ.Activity do
 
   schema "activities" do
     field :name, :string
-    field :type, :string
+    field :why, :string
+    field :image, :string
+    field :color, :string
     field :avgDuration, :integer
+    field :skippable, :boolean
+
+    field :invest, :integer
+
+    field :deadline, Ecto.DateTime
+    field :frequency, :string
+
     field :lastDone, Ecto.DateTime
-    field :priority, :integer
 
     has_many :logs, TodoQ.Log
 
@@ -18,8 +26,8 @@ defmodule TodoQ.Activity do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :type, :priority])
-    |> validate_required([:name, :type, :priority])
+    |> cast(params, [:name, :why, :image, :color, :avgDuration])
+    |> validate_required([:name, :why, :image, :color, :avgDuration])
     |> put_change(:lastDone, Ecto.DateTime.utc)
   end
 end

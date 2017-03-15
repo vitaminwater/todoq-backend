@@ -12,9 +12,14 @@ defmodule TodoQ.ActivityView do
   def render("activity.json", %{activity: activity}) do
     %{id: activity.id,
       name: activity.name,
-      type: activity.type,
+      why: activity.why,
+      image: activity.image,
+      color: activity.color,
       avgDuration: activity.avgDuration,
-      lastDone: activity.lastDone,
-      priority: activity.priority}
+      skippable: activity.skippable,
+      invest: activity.invest,
+      deadline: activity.deadline,
+      frequency: activity.frequency,
+      lastDone: activity.lastDone}
   end
 end
