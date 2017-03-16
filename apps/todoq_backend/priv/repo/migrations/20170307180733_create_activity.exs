@@ -18,6 +18,8 @@ defmodule TodoQ.Repo.Migrations.CreateActivity do
 
       add :lastDone, :utc_datetime
 
+      add :randomPath, :string
+
       timestamps()
     end
 

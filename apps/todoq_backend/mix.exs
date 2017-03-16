@@ -23,7 +23,7 @@ defmodule TodoQ.Mixfile do
   def application do
     [mod: {TodoQ, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :arc_ecto]]
   end
 
   # Specifies which paths to compile per environment.

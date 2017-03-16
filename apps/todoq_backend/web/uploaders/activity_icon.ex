@@ -1,11 +1,17 @@
-defmodule Todoq.ActivityIcon do
+defmodule TodoQ.ActivityIcon do
   use Arc.Definition
   use Arc.Ecto.Definition
 
   @versions [:original, :thumb]
 
+  def __storage, do: Arc.Storage.Local
+
   def validate({file, _}) do
     ~w(.jpg .jpeg .gif .png) |> Enum.member?(Path.extname(file.file_name))
+  end
+
+  def filename(version, _) do
+    version
   end
 
   # Define a thumbnail transformation:
@@ -14,8 +20,11 @@ defmodule Todoq.ActivityIcon do
   end
 
   # Override the storage directory:
-  def storage_dir(_, {_, scope}) do
-    "uploads/activity/icon/#{scope.id}"
+  def storage_dir(_, {_, activity}) do
+    "uploads/activity/icon/#{activity.randomPath}"
   end
 
+  def default_url(:thumb) do
+    "http://localhost:8000/"
+  end
 end

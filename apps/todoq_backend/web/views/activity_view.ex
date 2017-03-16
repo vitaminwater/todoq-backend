@@ -13,7 +13,7 @@ defmodule TodoQ.ActivityView do
     %{id: activity.id,
       name: activity.name,
       why: activity.why,
-      image: activity.image,
+      image: TodoQ.ActivityIcon.url({activity.image, activity}),
       color: activity.color,
       avgDuration: activity.avgDuration,
       skippable: activity.skippable,
