@@ -24,15 +24,11 @@ defmodule TodoQ.Activity do
     timestamps()
   end
 
-  defp validate_type(changeset) do
-    type = get_field(changeset, :type)
-    deadline = get_field(changeset, :deadline)
-    frequency = get_field(changeset, :frequency)
-
-    if type == "frequency" and not is_nil(frequency) or type == "deadline" and not is_nil(deadline) do
-      raise "Type / required fields mismatch"
+  defp validate_type(changeset, params) do
+    case params do
+      %{"type" => "frequency"} -> validate_required(changeset, [:frequency])
+      %{"type" => "deadline"} -> validate_required(changeset, [:deadline])
     end
-    changeset
   end
 
   defp cast_type(changeset, params) do
@@ -53,7 +49,7 @@ defmodule TodoQ.Activity do
     |> put_change(:randomPath, randomPathString)
     |> cast_attachments(params, [:image])
     |> validate_required([:name, :why, :color, :avgDuration, :skippable, :invest])
-    |> validate_type()
+    |> validate_type(params)
     |> put_change(:lastDone, Ecto.DateTime.utc)
   end
 end

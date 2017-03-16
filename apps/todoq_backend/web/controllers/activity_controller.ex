@@ -9,7 +9,6 @@ defmodule TodoQ.ActivityController do
   end
 
   def create(conn, %{"activity" => activity_params}) do
-    IO.inspect(activity_params)
     changeset = Activity.changeset(%Activity{}, activity_params)
 
     case Repo.insert(changeset) do
