@@ -1,10 +1,11 @@
 defmodule TodoQ.Activity do
   use TodoQ.Web, :model
+  use Arc.Ecto.Schema
 
   schema "activities" do
     field :name, :string
     field :why, :string
-    field :image, :string
+    field :image, Todoq.ActivityIcon.Type
     field :color, :string
     field :avgDuration, :integer
     field :skippable, :boolean
@@ -26,7 +27,8 @@ defmodule TodoQ.Activity do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :why, :image, :color, :avgDuration])
+    |> cast(params, [:name, :why, :color, :avgDuration])
+    |> cast_attachments(params, [:image])
     |> validate_required([:name, :why, :image, :color, :avgDuration])
     |> put_change(:lastDone, Ecto.DateTime.utc)
   end
