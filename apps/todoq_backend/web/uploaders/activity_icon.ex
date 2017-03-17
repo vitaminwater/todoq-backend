@@ -4,8 +4,6 @@ defmodule TodoQ.ActivityIcon do
 
   @versions [:original, :thumb]
 
-  def __storage, do: Arc.Storage.Local
-
   def validate({file, _}) do
     ~w(.jpg .jpeg .gif .png) |> Enum.member?(Path.extname(file.file_name))
   end
@@ -24,7 +22,4 @@ defmodule TodoQ.ActivityIcon do
     "uploads/activity/icon/#{activity.randomPath}"
   end
 
-  def default_url(:thumb) do
-    "http://localhost:8000/"
-  end
 end

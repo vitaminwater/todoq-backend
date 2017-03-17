@@ -12,6 +12,7 @@ defmodule TodoQ.Activity do
 
     field :invest, :integer
 
+    field :type, :string
     field :deadline, Ecto.DateTime
     field :frequency, :string
 
@@ -24,10 +25,11 @@ defmodule TodoQ.Activity do
     timestamps()
   end
 
-  defp validate_type(changeset, params) do
-    case params do
-      %{"type" => "frequency"} -> validate_required(changeset, [:frequency])
-      %{"type" => "deadline"} -> validate_required(changeset, [:deadline])
+  defp validate_type(changeset) do
+    type = get_field(changeset, :type)
+    case type do
+      "frequency" -> validate_required(changeset, [:frequency])
+      "deadline" -> validate_required(changeset, [:deadline])
     end
   end
 
@@ -44,12 +46,12 @@ defmodule TodoQ.Activity do
   def changeset(struct, params \\ %{}) do
     {:ok, randomPathString} = Ecto.UUID.load(Ecto.UUID.bingenerate())
     struct
-    |> cast(params, [:name, :why, :color, :avgDuration, :skippable, :invest])
+    |> cast(params, [:name, :why, :color, :avgDuration, :skippable, :invest, :type])
     |> cast_type(params)
     |> put_change(:randomPath, randomPathString)
     |> cast_attachments(params, [:image])
     |> validate_required([:name, :why, :color, :avgDuration, :skippable, :invest])
-    |> validate_type(params)
+    |> validate_type()
     |> put_change(:lastDone, Ecto.DateTime.utc)
   end
 end

@@ -13,6 +13,7 @@ defmodule TodoQ.Repo.Migrations.CreateActivity do
 
       add :invest, :integer, null: false
 
+      add :type, :string
       add :deadline, :utc_datetime
       add :frequency, :string
 

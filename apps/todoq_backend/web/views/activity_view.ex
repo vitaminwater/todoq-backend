@@ -18,6 +18,7 @@ defmodule TodoQ.ActivityView do
       avgDuration: activity.avgDuration,
       skippable: activity.skippable,
       invest: activity.invest,
+      type: activity.type,
       deadline: activity.deadline,
       frequency: activity.frequency,
       lastDone: activity.lastDone}
