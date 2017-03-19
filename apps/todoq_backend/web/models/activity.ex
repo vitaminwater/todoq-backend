@@ -40,15 +40,27 @@ defmodule TodoQ.Activity do
     end
   end
 
+  defp random_path() do
+    {:ok, randomPathString} = Ecto.UUID.load(Ecto.UUID.bingenerate())
+    randomPathString
+  end
+
+  defp put_random_path_on_create(changeset) do
+    r = get_field(changeset, :randomPath)
+    cond do
+      is_nil(r) -> put_change(changeset, :randomPath, random_path())
+      true -> changeset
+    end
+  end
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
-    {:ok, randomPathString} = Ecto.UUID.load(Ecto.UUID.bingenerate())
     struct
     |> cast(params, [:name, :why, :color, :avgDuration, :skippable, :invest, :type])
     |> cast_type(params)
-    |> put_change(:randomPath, randomPathString)
+    |> put_random_path_on_create()
     |> cast_attachments(params, [:image])
     |> validate_required([:name, :why, :color, :avgDuration, :skippable, :invest])
     |> validate_type()
