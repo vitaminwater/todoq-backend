@@ -16,7 +16,7 @@ defmodule TodoQ.LogController do
       {:ok, log} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", activity_log_path(conn, :show, activity_id, log))
+        |> put_resp_header("location", log_path(conn, :show, log))
         |> render("show.json", log: log)
       {:error, changeset} ->
         conn

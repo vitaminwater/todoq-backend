@@ -16,8 +16,8 @@ defmodule TodoQ.Log do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:content, :type, :activity_id])
-    |> validate_required([:content, :type, :activity_id])
+    |> cast(params, [:text, :content, :type, :activity_id])
+    |> validate_required([:text, :content, :type, :activity_id])
     |> foreign_key_constraint(:activity_id)
   end
 end
