@@ -13,6 +13,7 @@ defmodule TodoQ.LogView do
     %{id: log.id,
       text: log.text,
       type: log.type,
-      content: log.content}
+      content: log.content,
+      inserted_at: log.inserted_at}
   end
 end
