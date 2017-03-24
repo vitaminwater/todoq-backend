@@ -12,7 +12,7 @@ defmodule TodoQ.LogController do
     changeset = %Log{activity_id: activity_id}
                 |> Log.changeset(log_params)
 
-    case Repo.insert(changeset) do
+    case BroadcastRepo.insert(changeset) do
       {:ok, log} ->
         conn
         |> put_status(:created)

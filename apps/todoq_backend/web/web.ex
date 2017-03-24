@@ -33,6 +33,7 @@ defmodule TodoQ.Web do
     quote do
       use Phoenix.Controller, namespace: TodoQ
 
+      alias TodoQ.BroadcastRepo
       alias TodoQ.Repo
       import Ecto
       import Ecto.Query
@@ -65,6 +66,7 @@ defmodule TodoQ.Web do
     quote do
       use Phoenix.Channel
 
+      alias TodoQ.BroadcastRepo
       alias TodoQ.Repo
       import Ecto
       import Ecto.Query
