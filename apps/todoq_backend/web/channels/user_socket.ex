@@ -2,6 +2,7 @@ defmodule TodoQ.UserSocket do
   use Phoenix.Socket
 
   ## Channels
+  channel "logs:*", TodoQ.LogChannel
   channel "activity:*", TodoQ.ActivityChannel
 
   ## Transports

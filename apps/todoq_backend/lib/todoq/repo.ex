@@ -6,6 +6,7 @@ defmodule TodoQ.BroadcastRepo do
 	alias TodoQ.Repo
 	alias TodoQ.{Activity, Log}
 	alias TodoQ.ActivityChannel
+	alias TodoQ.LogChannel
 
 	def insert(queryable, opts \\ []) do
 		handle_repo_return Repo.insert(queryable, opts), :insert
@@ -57,13 +58,13 @@ defmodule TodoQ.BroadcastRepo do
 	end
 
 	defp model_event(%Log{} = model, :insert) do
-		ActivityChannel.insert_log(model)
+		LogChannel.insert_log(model)
 	end
 	defp model_event(%Log{} = model, :update) do
-		ActivityChannel.update_log(model)
+		LogChannel.update_log(model)
 	end
 	defp model_event(%Log{} = model, :delete) do
-		ActivityChannel.delete_log(model)
+		LogChannel.delete_log(model)
 	end
 
 	defp model_event(_model, :update), do: :nothing
