@@ -34,7 +34,7 @@ defmodule TodoQFrontend.LogController do
     log = Repo.get!(Log, id)
     changeset = Log.changeset(log, log_params)
 
-    case Repo.update(changeset) do
+    case BroadcastRepo.update(changeset) do
       {:ok, log} ->
         render(conn, "show.json", log: log)
       {:error, changeset} ->
@@ -49,7 +49,7 @@ defmodule TodoQFrontend.LogController do
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(log)
+    BroadcastRepo.delete!(log)
 
     send_resp(conn, :no_content, "")
   end

@@ -6,6 +6,11 @@ defmodule TodoQFrontend.LogChannel do
     {:ok, socket}
   end
 
+  def handle_out("insert:log", payload, socket) do
+    push socket, "insert:log", payload
+    {:noreply, socket}
+  end
+
 	def insert_log(model) do
     Task.start fn ->
       payload = LogView.render("log.json", log: model)

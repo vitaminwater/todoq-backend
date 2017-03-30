@@ -1,18 +1,14 @@
-defmodule TodoqLogProcessor do
-  @moduledoc """
-  Documentation for TodoqLogProcessor.
-  """
+defmodule TodoQLogProcessor do
+  use Application
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    import Supervisor.Spec, warn: false
 
-  ## Examples
+    children = [
+      supervisor(Phoenix.PubSub.PG2, [TodoQFrontend.PubSub, []])
+    ]
 
-      iex> TodoqLogProcessor.hello
-      :world
-
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: TodoQLogProcessor.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end

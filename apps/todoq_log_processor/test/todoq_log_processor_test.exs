@@ -1,6 +1,6 @@
-defmodule TodoqLogProcessorTest do
+defmodule TodoQLogProcessorTest do
   use ExUnit.Case
-  doctest TodoqLogProcessor
+  doctest TodoQLogProcessor
 
   test "the truth" do
     assert 1 + 1 == 2

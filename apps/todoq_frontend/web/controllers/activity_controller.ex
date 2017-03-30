@@ -11,7 +11,7 @@ defmodule TodoQFrontend.ActivityController do
   def create(conn, %{"activity" => activity_params}) do
     changeset = Activity.changeset(%Activity{}, activity_params)
 
-    case Repo.insert(changeset) do
+    case BroadcastRepo.insert(changeset) do
       {:ok, activity} ->
         conn
         |> put_status(:created)
@@ -33,7 +33,7 @@ defmodule TodoQFrontend.ActivityController do
     activity = Repo.get!(Activity, id)
     changeset = Activity.changeset(activity, activity_params)
 
-    case Repo.update(changeset) do
+    case BroadcastRepo.update(changeset) do
       {:ok, activity} ->
         render(conn, "show.json", activity: activity)
       {:error, changeset} ->
@@ -48,7 +48,7 @@ defmodule TodoQFrontend.ActivityController do
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
-    Repo.delete!(activity)
+    BroadcastRepo.delete!(activity)
 
     send_resp(conn, :no_content, "")
   end
