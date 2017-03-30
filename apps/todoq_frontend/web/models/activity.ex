@@ -25,33 +25,16 @@ defmodule TodoQFrontend.Activity do
     timestamps()
   end
 
-  defp validate_type(changeset) do
-    type = get_field(changeset, :type)
-    case type do
-      "frequency" -> validate_required(changeset, [:frequency])
-      "deadline" -> validate_required(changeset, [:deadline])
-    end
-  end
+  defp cast_type(%Ecto.Changeset{changes: %{type: "frequency"}} = changeset, params), do: cast(changeset, params, [:frequency])
+  defp cast_type(%Ecto.Changeset{changes: %{type: "deadline"}} = changeset, params), do: cast(changeset, params, [:deadline])
+  defp cast_type(changeset, _params), do: changeset
 
-  defp cast_type(changeset, params) do
-    case params do
-      %{"type" => "frequency"} -> cast(changeset, params, [:frequency])
-      %{"type" => "deadline"} -> cast(changeset, params, [:deadline])
-    end
-  end
+  defp validate_type(%Ecto.Changeset{changes: %{type: "frequency"}} = changeset), do: validate_required(changeset, [:frequency])
+  defp validate_type(%Ecto.Changeset{changes: %{type: "deadline"}} = changeset), do: validate_required(changeset, [:deadline])
+  defp validate_type(changeset), do: changeset
 
-  defp random_path() do
-    {:ok, randomPathString} = Ecto.UUID.load(Ecto.UUID.bingenerate())
-    randomPathString
-  end
-
-  defp put_random_path_on_create(changeset) do
-    r = get_field(changeset, :randomPath)
-    cond do
-      is_nil(r) -> put_change(changeset, :randomPath, random_path())
-      true -> changeset
-    end
-  end
+  defp put_random_path_on_create(%Ecto.Changeset{changes: %{randomPath: nil}} = changeset), do: put_change(changeset, :randomPath, random_path())
+  defp put_random_path_on_create(changeset), do: changeset
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
@@ -62,8 +45,14 @@ defmodule TodoQFrontend.Activity do
     |> cast_type(params)
     |> put_random_path_on_create()
     |> cast_attachments(params, [:image])
-    |> validate_required([:name, :why, :color, :avgDuration, :skippable, :invest])
+    |> validate_required([:name, :why, :color, :avgDuration, :skippable, :invest, :type])
     |> validate_type()
     |> put_change(:lastDone, Ecto.DateTime.utc)
   end
+
+  defp random_path() do
+    {:ok, randomPathString} = Ecto.UUID.load(Ecto.UUID.bingenerate())
+    randomPathString
+  end
+
 end
