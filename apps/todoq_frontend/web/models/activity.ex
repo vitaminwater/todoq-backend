@@ -2,6 +2,8 @@ defmodule TodoQFrontend.Activity do
   use TodoQFrontend.Web, :model
   use Arc.Ecto.Schema
 
+  alias Ecto.Changeset
+
   schema "activities" do
     field :name, :string
     field :why, :string
@@ -25,15 +27,15 @@ defmodule TodoQFrontend.Activity do
     timestamps()
   end
 
-  defp cast_type(%Ecto.Changeset{changes: %{type: "frequency"}} = changeset, params), do: cast(changeset, params, [:frequency])
-  defp cast_type(%Ecto.Changeset{changes: %{type: "deadline"}} = changeset, params), do: cast(changeset, params, [:deadline])
+  defp cast_type(%Changeset{changes: %{type: "frequency"}} = changeset, params), do: cast(changeset, params, [:frequency])
+  defp cast_type(%Changeset{changes: %{type: "deadline"}} = changeset, params), do: cast(changeset, params, [:deadline])
   defp cast_type(changeset, _params), do: changeset
 
-  defp validate_type(%Ecto.Changeset{changes: %{type: "frequency"}} = changeset), do: validate_required(changeset, [:frequency])
-  defp validate_type(%Ecto.Changeset{changes: %{type: "deadline"}} = changeset), do: validate_required(changeset, [:deadline])
+  defp validate_type(%Changeset{changes: %{type: "frequency"}} = changeset), do: validate_required(changeset, [:frequency])
+  defp validate_type(%Changeset{changes: %{type: "deadline"}} = changeset), do: validate_required(changeset, [:deadline])
   defp validate_type(changeset), do: changeset
 
-  defp put_random_path_on_create(%Ecto.Changeset{changes: %{randomPath: nil}} = changeset), do: put_change(changeset, :randomPath, random_path())
+  defp put_random_path_on_create(%Changeset{changes: %{randomPath: nil}} = changeset), do: put_change(changeset, :randomPath, random_path())
   defp put_random_path_on_create(changeset), do: changeset
 
   @doc """
