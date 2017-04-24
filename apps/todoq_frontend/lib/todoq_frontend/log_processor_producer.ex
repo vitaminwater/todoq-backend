@@ -8,35 +8,35 @@ defmodule TodoQFrontend.LogProcessorProducer do
   import Ecto.Query
 
   def start_link() do
-    IO.puts("TodoQFrontend.LogProcessorProducer.start_link")
     GenStage.start_link(__MODULE__, :ok, name: __MODULE__)
   end
 
   def init(:ok) do
-    IO.puts("TodoQFrontend.LogProcessorProducer.init")
     logs = Repo.all(from u in Log, where: u.type == "UNPROCESSED")
-    IO.inspect logs
-    {:producer, logs}
+    {:producer, %{demand: 0, logs: logs}}
   end
 
-  def handle_demand(demand, logs) when demand > 0 do
-    IO.puts("TodoQFrontend.LogProcessorProducer.handle_demand")
-    IO.inspect(demand)
-    {ret, rest} = Enum.split(logs, demand)
-    {:noreply, ret, rest}
+  def handle_demand(demand, state) when demand > 0 do
+    state = %{state | demand: state.demand+demand}
+    do_handle_demand(state)
   end
 
-  def handle_cast({:process_log, log}, logs) do
-    IO.inspect("TodoQFrontend.LogProcessorProducer.handle_cast :process_log")
-    IO.inspect(log)
-    IO.inspect(logs)
-    {:noreply, [log | logs]}
+  def handle_cast({:process_log, log}, state) do
+    state = %{state | logs: [log | state.logs]}
+    do_handle_demand(state)
+  end
+
+  # private
+
+  defp do_handle_demand(state) do
+    {events, logs} = Enum.split(state.logs, state.demand)
+    state = %{state | demand: Enum.max([0, state.demand - length(events)]), logs: logs}
+    {:noreply, events, state}
   end
 
   # client functions
 
   def process_log(log) do
-    IO.inspect("TodoQFrontend.LogProcessorProducer.process_log")
     GenStage.cast(__MODULE__, {:process_log, log})
   end
 
