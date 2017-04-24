@@ -41,7 +41,8 @@ defmodule TodoQFrontend.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:cors_plug, "~> 1.2"},]
+     {:cors_plug, "~> 1.2"},
+     {:gen_stage, "~> 0.11"},]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -11,6 +11,7 @@ defmodule TodoQFrontend.LogView do
 
   def render("log.json", %{log: log}) do
     %{id: log.id,
+      activity_id: log.activity_id,
       text: log.text,
       type: log.type,
       content: log.content,

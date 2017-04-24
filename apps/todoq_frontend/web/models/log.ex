@@ -1,6 +1,9 @@
 defmodule TodoQFrontend.Log do
   use TodoQFrontend.Web, :model
 
+  @doc """
+  Type field can be any of values: "NOTE", "LINK", "TODO", "UNPROCESSED"
+  """
   schema "logs" do
     field :text, :string
     field :type, :string
