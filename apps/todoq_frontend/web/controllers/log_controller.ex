@@ -4,7 +4,7 @@ defmodule TodoQFrontend.LogController do
   alias TodoQFrontend.Log
 
   def index(conn, %{"activity_id" => activity_id}) do
-    logs = Repo.all(from u in Log, where: u.activity_id == ^activity_id)
+    logs = Repo.all(from u in Log, where: u.activity_id == ^activity_id, order_by: :inserted_at)
     render(conn, "index.json", logs: logs)
   end
 

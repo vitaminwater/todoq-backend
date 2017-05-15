@@ -4,7 +4,7 @@ defmodule TodoQFrontend.Repo.Migrations.CreateLog do
   def change do
     create table(:logs, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :text, :string
+      add :text, :text
       add :type, :string
       add :content, :map
       add :activity_id, references(:activities, on_delete: :delete_all, type: :uuid)
