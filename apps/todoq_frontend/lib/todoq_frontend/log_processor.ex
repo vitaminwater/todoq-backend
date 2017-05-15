@@ -3,10 +3,12 @@ defmodule TodoQFrontend.LogProcessor do
   Processes link logs
   """
 
+  require Logger
+
   alias TodoQFrontend.BroadcastRepo
   alias TodoQFrontend.Log
 
-  @url_regex ~r"#\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))#iS"
+  @url_regex ~r"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"
 
   @type_matchers [
     { @url_regex, :link },
