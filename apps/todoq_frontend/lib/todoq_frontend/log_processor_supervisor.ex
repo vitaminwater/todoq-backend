@@ -12,7 +12,7 @@ defmodule TodoQFrontend.LogProcessorSupervisor do
     children = [
       worker(TodoQFrontend.LogProcessor, [], restart: :temporary)
     ]
-    {:ok, children, strategy: :one_for_one, subscribe_to: [{TodoQFrontend.LogProcessorProducer, max_demand: 10}]}
+    {:ok, children, strategy: :simple_one_for_one, subscribe_to: [{TodoQFrontend.LogProcessorProducer, max_demand: 10}]}
   end
 
 end

@@ -30,7 +30,7 @@ defmodule TodoQFrontend.LogProcessorProducer do
 
   defp do_handle_demand(state) do
     {events, logs} = Enum.split(state.logs, state.demand)
-    state = %{state | demand: Enum.max([0, state.demand - length(events)]), logs: logs}
+    state = %{state | demand: state.demand - length(events), logs: logs}
     {:noreply, events, state}
   end
 
