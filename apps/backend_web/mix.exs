@@ -37,7 +37,8 @@ defmodule Backend.Web.Mixfile do
      {:phoenix_ecto, "~> 3.2"},
      {:gettext, "~> 0.11"},
      {:backend, in_umbrella: true},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:cors_plug, "~> 1.2"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
