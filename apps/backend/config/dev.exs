@@ -11,7 +11,8 @@ config :backend, Backend.Repo,
 
 config :arc,
   storage: Arc.Storage.S3,
-  bucket: "activity-image-dev"
+  bucket: "activity-image-dev",
+  virtual_host: true
 
 config :ex_aws,
   debug_requests: true,

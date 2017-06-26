@@ -14,11 +14,13 @@ defmodule Backend.Web.ActivityView do
     %{id: activity.id,
       name: activity.name,
       why: activity.why,
+      image: Backend.Activities.ActivityIcon.url({activity.image, activity}, :thumb),
       color: activity.color,
       avgDuration: activity.avgDuration,
       skippable: activity.skippable,
       invest: activity.invest,
       type: activity.type,
+      deadline: activity.deadline,
       frequency: activity.frequency,
       randomPath: activity.randomPath}
   end

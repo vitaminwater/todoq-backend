@@ -52,13 +52,13 @@ defmodule Backend.Activities.Activity do
   @doc false
   def changeset(%Activity{} = activity, attrs) do
     activity
-    |> cast(attrs, [:name, :why, :color, :avgDuration, :skippable, :invest, :type, :frequency, :randomPath])
+    |> cast(attrs, [:name, :why, :color, :avgDuration, :skippable, :invest, :type, :frequency])
+    |> validate_required([:name, :why, :color, :avgDuration, :skippable, :invest, :type, :frequency])
+    |> validate_type()
     |> cast_type(attrs)
     |> put_random_path_on_create()
-    |> cast_attachments(attrs, [:image])
-    |> debug(attrs)
-    |> validate_required([:name, :why, :image, :color, :avgDuration, :skippable, :invest, :type, :frequency, :randomPath])
-    |> validate_type()
+    |> cast_attachments(attrs, [:image]) # TODO don't cast when invalid
+    |> validate_required([:image])
     |> put_change(:lastDone, Ecto.DateTime.utc)
   end
 
