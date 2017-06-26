@@ -14,7 +14,7 @@ defmodule Backend.Web.ActivityView do
     %{id: activity.id,
       name: activity.name,
       why: activity.why,
-      image: Backend.Activities.ActivityIcon.url({activity.image, activity}, :thumb),
+      image: Backend.Activities.ActivityIcon.url({activity.image, activity}, :thumb), # TODO dump all versions
       color: activity.color,
       avgDuration: activity.avgDuration,
       skippable: activity.skippable,
