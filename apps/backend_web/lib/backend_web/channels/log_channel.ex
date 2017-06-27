@@ -2,15 +2,8 @@ defmodule Backend.Web.LogChannel do
   use Backend.Web, :channel
   alias Backend.Web.LogView
 
-  intercept ["insert:log"]
-
   def join("logs:" <> _activity_id, _payload, socket) do
     {:ok, socket}
-  end
-
-  def handle_out("insert:log", payload, socket) do
-    push socket, "insert:log", payload
-    {:noreply, socket}
   end
 
   def insert_log(model) do
