@@ -9,8 +9,8 @@ defmodule Backend.Web.Router do
     pipe_through :api
 
     resources "/activities", ActivityController, except: [:new, :edit] do
-      resources "/logs", LogController, only: [:create, :index]
+      resources "/logs", LogController, only: [:index, :create]
     end
-    resources "/logs", LogController, except: [:new, :edit, :index, :create]
+    resources "/logs", LogController, only: [:show, :update, :delete]
   end
 end
