@@ -6,10 +6,8 @@ defmodule Backend.Web.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Start the endpoint when the application starts
       supervisor(Backend.Web.Endpoint, []),
-      # Start your own worker by calling: Backend.Web.Worker.start_link(arg1, arg2, arg3)
-      # worker(Backend.Web.Worker, [arg1, arg2, arg3]),
+      worker(Backend.Web.ChannelProxy, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
