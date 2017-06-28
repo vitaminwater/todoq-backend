@@ -17,7 +17,4 @@ defmodule Backend.Activities.ActivityIcon do
     {:convert, "-strip -thumbnail 250x250^ -gravity center -extent 250x250 -format png", :png}
   end
 
-  def s3_object_headers(_version, {file, _scope}) do
-    [content_type: Plug.MIME.path(file.file_name)]
-  end
 end

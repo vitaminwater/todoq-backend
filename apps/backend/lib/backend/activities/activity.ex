@@ -42,13 +42,6 @@ defmodule Backend.Activities.Activity do
   defp validate_type(%Changeset{changes: %{type: "deadline"}} = changeset), do: validate_required(changeset, [:deadline])
   defp validate_type(changeset), do: changeset
 
-  defp debug(changeset, attrs) do
-    IO.inspect(changeset)
-    IO.inspect(attrs)
-    IO.inspect(File.exists?(attrs["image"].path))
-    changeset
-  end
-
   @doc false
   def changeset(%Activity{} = activity, attrs) do
     activity

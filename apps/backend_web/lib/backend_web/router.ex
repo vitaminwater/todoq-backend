@@ -8,6 +8,8 @@ defmodule Backend.Web.Router do
   scope "/", Backend.Web do
     pipe_through :api
 
+    resources "/users", UserController, except: [:new, :edit]
+
     resources "/activities", ActivityController, except: [:new, :edit] do
       resources "/logs", LogController, only: [:index, :create]
     end
