@@ -6,10 +6,10 @@ defmodule Backend.Web.LogChannel do
     {:ok, socket}
   end
 
-  def insert_log(model) do
+  def create_log(model) do
     Task.start fn ->
       payload = LogView.render("log.json", log: model)
-      Backend.Web.Endpoint.broadcast!("logs:#{model.activity_id}", "insert:log", payload)
+      Backend.Web.Endpoint.broadcast!("logs:#{model.activity_id}", "create:log", payload)
     end
   end
 

@@ -12,8 +12,10 @@ defmodule Backend.Web.LogView do
 
   def render("log.json", %{log: log}) do
     %{id: log.id,
+      activity_id: log.activity_id,
       text: log.text,
       type: log.type,
-      content: log.content}
+      content: log.content,
+      inserted_at: log.inserted_at}
   end
 end

@@ -15,8 +15,14 @@ defmodule Backend.Web.ChannelProxy do
     {:ok, state}
   end
 
-  def handle_cast({:insert_log, log}, state) do
-    Backend.Web.LogChannel.insert_log(log)
+  @doc """
+    
+    Log functions
+
+  """
+
+  def handle_cast({:create_log, log}, state) do
+    Backend.Web.LogChannel.create_log(log)
     {:noreply, state}
   end
 
