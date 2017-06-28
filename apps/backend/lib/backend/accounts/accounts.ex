@@ -19,7 +19,6 @@ defmodule Backend.Accounts do
   end
 
   defp hash_password(changeset) do
-    Logger.info(changeset.params["password"])
     changeset
     |> put_change(:password_hash, Comeonin.Bcrypt.hashpwsalt(changeset.params["password"]))
   end
