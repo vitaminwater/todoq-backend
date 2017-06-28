@@ -12,10 +12,23 @@ defmodule Backend.Activities do
   alias Backend.Activities.Activity
 
   def list_activities, do: Repo.all(Activity)
+
   def get_activity!(id), do: Repo.get!(Activity, id)
-  def create_activity(attrs \\ %{}), do: %Activity{} |> Activity.changeset(attrs) |> Repo.insert()
-  def update_activity(%Activity{} = activity, attrs), do: activity |> Activity.changeset(attrs) |> Repo.update()
+
+  def create_activity(attrs \\ %{}) do
+    %Activity{}
+    |> Activity.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_activity(%Activity{} = activity, attrs) do
+    activity
+    |> Activity.changeset(attrs)
+    |> Repo.update()
+  end
+
   def delete_activity(%Activity{} = activity), do: Repo.delete(activity)
+
   def change_activity(%Activity{} = activity), do: Activity.changeset(activity, %{})
 
   @doc """
@@ -26,7 +39,10 @@ defmodule Backend.Activities do
 
   alias Backend.Activities.Log
 
-  def list_logs(activity_id), do: Repo.all(from u in Log, where: u.activity_id == ^activity_id, order_by: :inserted_at)
+  def list_logs(activity_id) do
+    Repo.all(from u in Log, where: u.activity_id == ^activity_id, order_by: :inserted_at)
+  end
+
   def get_log!(id), do: Repo.get!(Log, id)
 
   def create_log(activity_id, attrs \\ %{}) do

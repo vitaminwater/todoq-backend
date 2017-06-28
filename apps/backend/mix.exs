@@ -39,6 +39,7 @@ defmodule Backend.Mixfile do
      {:sweet_xml, "~> 0.6"},
      {:postgrex, ">= 0.0.0"},
      {:ecto, "~> 2.1"},
+     {:comeonin, "~> 3.0"},
      {:poison, "~> 3.1", only: :test},
      {:plug, "~> 1.0", only: :test}]
   end

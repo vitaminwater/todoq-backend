@@ -7,8 +7,8 @@ defmodule Backend.Web.UserController do
   action_fallback Backend.Web.FallbackController
 
   def index(conn, _params) do
-    accounts = Accounts.list_accounts()
-    render(conn, "index.json", accounts: accounts)
+    users = Accounts.list_users()
+    render(conn, "index.json", users: users)
   end
 
   def create(conn, %{"user" => user_params}) do

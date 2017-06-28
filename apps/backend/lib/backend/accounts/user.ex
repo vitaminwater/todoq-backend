@@ -3,7 +3,6 @@ defmodule Backend.Accounts.User do
   import Ecto.Changeset
   alias Backend.Accounts.User
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "accounts_users" do
