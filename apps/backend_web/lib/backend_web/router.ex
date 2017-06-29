@@ -14,5 +14,7 @@ defmodule Backend.Web.Router do
       resources "/logs", LogController, only: [:index, :create]
     end
     resources "/logs", LogController, only: [:show, :update, :delete]
+
+    post "/login", AuthController, :login
   end
 end

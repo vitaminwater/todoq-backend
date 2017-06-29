@@ -17,4 +17,11 @@ defmodule Backend.Web.FallbackController do
     |> put_status(:not_found)
     |> render(Backend.Web.ErrorView, :"404")
   end
+
+  def call(conn, {:error, nil}) do
+    conn
+    |> put_status(:not_found)
+    |> render(Backend.Web.ErrorView, :"500")
+  end
+
 end

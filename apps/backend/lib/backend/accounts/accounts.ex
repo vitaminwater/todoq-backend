@@ -32,4 +32,13 @@ defmodule Backend.Accounts do
   def delete_user(%User{} = user), do: Repo.delete(user)
 
   def change_user(%User{} = user), do: User.changeset(user, %{})
+
+  def login(email, password) do
+    with %User{} = user <- Repo.one(from u in User, where: u.email == ^email),
+      true <- Comeonin.Bcrypt.checkpw(password, user.password_hash) do
+      {:ok, user}
+    else
+      _ -> {:error, nil}
+    end
+  end
 end
