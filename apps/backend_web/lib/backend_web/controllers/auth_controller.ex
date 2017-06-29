@@ -17,4 +17,10 @@ defmodule Backend.Web.AuthController do
     end
   end
 
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_status(:not_found)
+    |> render(Backend.Web.ErrorView, :"404")
+  end
+
 end

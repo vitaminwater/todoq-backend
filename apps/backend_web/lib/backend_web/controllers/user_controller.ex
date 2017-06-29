@@ -6,6 +6,7 @@ defmodule Backend.Web.UserController do
 
   action_fallback Backend.Web.FallbackController
 
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.json", users: users)
@@ -39,4 +40,5 @@ defmodule Backend.Web.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
 end
