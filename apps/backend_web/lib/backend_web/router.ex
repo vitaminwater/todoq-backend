@@ -5,16 +5,27 @@ defmodule Backend.Web.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :api_auth do  
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug Guardian.Plug.LoadResource
+  end  
+
   scope "/", Backend.Web do
     pipe_through :api
 
-    resources "/users", UserController, except: [:new, :edit]
+    resources "/users", UserController, only: [:create]
+
+    post "/login", AuthController, :login
+  end
+
+  scope "/", Backend.Web do
+    pipe_through [:api, :api_auth]
+
+    resources "/users", UserController, except: [:new, :edit, :create]
 
     resources "/activities", ActivityController, except: [:new, :edit] do
       resources "/logs", LogController, only: [:index, :create]
     end
     resources "/logs", LogController, only: [:show, :update, :delete]
-
-    post "/login", AuthController, :login
   end
 end
